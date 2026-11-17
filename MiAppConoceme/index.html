@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi App - Conóceme</title>
+  
+  <!-- Fuente Retro Arcade -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+body::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+  background-size: 100% 4px;
+  z-index: 100;
+  pointer-events: none; 
+  opacity: 0.6;
+}
+    body {
+      background-color: #0f0a1c;
+      background-image: url('img/fondo.png'); 
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+
+      image-rendering: pixelated !important;
+      image-rendering: crisp-edges !important;
+
+      font-family: 'Press Start 2P', monospace !important;
+      height: 100vh;
+      width: 100vw;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      color: #ffffff;
+    }
+
+    .oculto {
+      display: none !important;
+    }
+    .ventana {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+      text-align: center;
+      max-width: 650px;
+      width: 90%;
+      z-index: 10;
+      margin: 0 auto;
+    }
+    .foto-fondo {
+      position: absolute;
+      width: 110px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 12px;
+      image-rendering: pixelated;
+      opacity: 0.85;
+      box-shadow: 0 0 15px rgba(255, 121, 198, 0.3);
+      border: 2px solid rgba(255, 121, 198, 0.6);
+      transition: all 0.3s ease;
+      z-index: 1;
+    }
+
+    .foto-fondo:hover {
+      opacity: 1;
+      transform: scale(1.1) rotate(0deg) !important;
+      z-index: 5;
+    }
+
+    .foto-1 { top: 6%; left: 6%; transform: rotate(-10deg); }
+    .foto-2 { top: 6%; right: 6%; transform: rotate(12deg); }
+    .foto-3 { bottom: 6%; left: 6%; transform: rotate(8deg); }
+    .foto-4 { bottom: 6%; right: 6%; transform: rotate(-15deg); }
+
+    @media (max-width: 600px) {
+      .foto-fondo {
+        width: 65px;
+        height: 65px;
+      }
+      .foto-1 { top: 15px; left: 15px; }
+      .foto-2 { top: 15px; right: 15px; }
+      .foto-3 { bottom: 15px; left: 15px; }
+      .foto-4 { bottom: 15px; right: 15px; }
+    }
+
+    #pantalla-inicio h1.titulo-gigante,
+    #pantalla-inicio h1,
+    .titulo-gigante {
+      font-family: 'Press Start 2P', monospace !important;
+      font-size: 36px !important;
+      line-height: 1.5 !important;
+      color: #ff79c6 !important;
+      text-shadow: 3px 3px 0px #1e1b2e, 5px 5px 0px #bd93f9 !important;
+      margin-bottom: 20px !important;
+      display: block !important;
+    }
+
+    .subtitulo-inicio {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 15px;
+      color: #8be9fd;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px #1e1b2e;
+    }
+
+    .titulo-principal-juegos {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 30px;
+      color: #ff79c6;
+      line-height: 1.3;
+      margin-bottom: 15px;
+      text-shadow: 3px 3px 0px #1e1b2e, 5px 5px 0px #bd93f9;
+    }
+
+    .subtitulo-juegos {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 15px;
+      color: #8be9fd;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px #1e1b2e;
+    }
+    
+    .btn-arcade {
+    background: #ff92d0 !important;
+border: 3px solid #ffffff !important;
+color: #1e1b2e !important;
+font-family: 'Press Start 2P', monospace !important;
+font-size: 14px !important;
+cursor: pointer !important;
+border-radius: 8px !important;
+box-shadow: 0 6px 0px #bd93f9 !important;
+padding: 16px 20px !important;
+margin-top: 20px !important;
+border-radius: 0px !important; 
+border: 4px solid #1a0f2b !important; 
+outline: 2px solid #ffb3c6 !important; 
+outline-offset: -6px !important;
+clip-path: polygon(
+0 8px, 8px 8px, 8px 0,
+calc(100% - 8px) 0, calc(100% - 8px) 8px, 100% 8px,
+100% calc(100% - 8px), calc(100% - 8px) calc(100% - 8px), calc(100% - 8px) 100%,
+8px 100%, 8px calc(100% - 8px), 0 calc(100% - 8px)
+) !important;
+display: inline-flex !important;
+align-items: center !important;
+justify-content: center !important;
+gap: 12px !important;
+width: 100% !important;
+max-width: 250px !important;
+margin: 14px auto !important;
+cursor: pointer !important;
+transition: transform 0.15s ease !important;}
+
+    .btn-arcade:hover {
+      transform: translateY(-2px) !important;
+      background: #e477a3 !important;
+    }
+
+    .btn-arcade-lista {
+      background: #25163a !important;
+      color: #d1ced6 !important;
+      font-family: 'Press Start 2P', monospace !important;
+      font-size: 14px !important;
+      font-weight: bold;
+      padding: 10px 15px !important;
+      border-radius: 0px !important;
+      border: 4px solid #1a0f2b !important;
+      outline: 2px solid #ffb3c6 !important;
+      outline-offset: -6px !important;
+      clip-path: polygon(
+        0 8px, 8px 8px, 8px 0,
+        calc(100% - 8px) 0, calc(100% - 8px) 8px, 100% 8px,
+        100% calc(100% - 8px), calc(100% - 8px) calc(100% - 8px), calc(100% - 8px) 100%,
+        8px 100%, 8px calc(100% - 8px), 0 calc(100% - 8px)
+      ) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 12px !important;
+      width: 100 !important;
+      max-width: 500px !important;
+      margin: 10px auto !important;
+      cursor: pointer !important;
+      transition: transform 0.15s ease !important;
+    }
+
+    .btn-arcade-lista:hover:not(:disabled) {
+     border-radius: 10px 25px 10px 25px !important;
+     background: #ff92d0 !important;
+     color: #25163a !important;
+    }
+
+    .btn-salir {
+      background: #25163a !important;
+      color: #ffffff !important;
+      border: 2px solid #231426 !important;
+      font-family: 'Press Start 2P', monospace !important;
+      font-size: 10px !important;
+      padding: 8px 16px !important;
+      cursor: pointer !important;
+      border-radius: 4px !important;
+      margin-top: 15px !important;
+    }
+
+    .btn-salir:hover {
+      background: #25163a !important;
+      transform: translateY(-2px) !important;
+}
+    .barra-progreso-contenedor {
+      width: 100%;
+      max-width: 400px;
+      height: 20px;
+      background-color: #1e1b2e !important;
+      border: 4px solid #1a0f2b !important;
+      outline: 2px solid #5a3877 !important;
+      outline-offset: -6px !important;
+      clip-path: polygon(
+        0 6px, 6px 6px, 6px 0,
+        calc(100% - 6px) 0, calc(100% - 6px) 6px, 100% 6px,
+        100% calc(100% - 6px), calc(100% - 6px) calc(100% - 6px), calc(100% - 6px) 100%,
+        6px 100%, 6px calc(100% - 6px), 0 calc(100% - 6px)
+      ) !important;
+      margin: 8px auto 15px auto;
+      padding: 3px;
+      box-sizing: border-box;
+    }
+
+  /* =========================================================
+   ANIMACIÓN FLIP CARD 3D (FICHA DE ESTUDIO)
+   ========================================================= */
+
+.grid-temas {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 15px !important;
+  margin: 25px auto !important;
+  width: 100% !important;
+  max-width: 850px !important;
+  clip-path: polygon(
+        0 6px, 6px 6px, 6px 0,
+        calc(100% - 6px) 0, calc(100% - 6px) 6px, 100% 6px,
+        100% calc(100% - 6px), calc(100% - 6px) calc(100% - 6px), calc(100% - 6px) 100%,
+        6px 100%, 6px calc(100% - 6px), 0 calc(100% - 6px)
+      ) !important;
+}
+
+/* Contenedor principal con perspectiva 3D */
+.tarjeta-flip {
+  background-color: transparent;
+  height: 150px;
+  perspective: 1000px; /* Efecto de profundidad 3D */
+  cursor: pointer;
+}
+
+/* Elemento contenedor interno que realiza el giro */
+.tarjeta-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+/* Animación al pasar el cursor encima */
+.tarjeta-flip:hover .tarjeta-inner {
+  transform: rotateY(180deg);
+}
+
+/* Caras frontal y trasera */
+.tarjeta-frente, .tarjeta-atras {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden; /* Oculta la cara posterior cuando no está de frente */
+  border: 3px solid #bd93f9;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  clip-path: polygon(
+        0 6px, 6px 6px, 6px 0,
+        calc(100% - 6px) 0, calc(100% - 6px) 6px, 100% 6px,
+        100% calc(100% - 6px), calc(100% - 6px) calc(100% - 6px), calc(100% - 6px) 100%,
+        6px 100%, 6px calc(100% - 6px), 0 calc(100% - 6px)
+      ) !important;
+}
+
+/* FRENTE: Solo se ve la foto limpia */
+.tarjeta-frente {
+  background-color: #1e1b2e;
+}
+
+.tarjeta-frente img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ATRÁS: Fondo retro con la respuesta/texto */
+.tarjeta-atras {
+  background: #25163a;
+  border-color: #ff79c6;
+  color: #ff79c6;
+  transform: rotateY(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.tarjeta-atras span {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  line-height: 1.5;
+  text-shadow: 2px 2px #1a0f2b;
+}
+
+/* Ajuste responsivo para celulares */
+@media (max-width: 600px) {
+  .grid-temas {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .tarjeta-flip {
+    height: 110px;
+  }
+  .tarjeta-atras span {
+    font-size: 8px;
+  }
+}
+
+  /* Tamaño ajustado para que quepan exactamente 2 fichas por fila */
+  .ficha-arrastrable { 
+    width: 48%; 
+    padding: 3px;
+  }
+
+  .ficha-arrastrable img { 
+    height: 40px; 
+  }
+
+  .ficha-arrastrable span { 
+    font-size: 7px; 
+  }
+
+  .casilla-slot-drop {
+    min-height: 44px;
+    padding: 3px;
+  }
+
+    .barra-progreso-relleno {
+      height: 100%;
+      width: 0%;
+      background-color: #50fa7b !important;
+      background-image: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.25) 20%,
+        transparent 20%
+      ) !important;
+      background-size: 10px 100% !important;
+      transition: width 0.4s ease-in-out !important;
+    }
+.caja-puntaje {
+  background: #1e1b2e;
+  border: 3px solid #bd93f9;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 480px;
+  border-radius: 8px;
+}
+
+/* 1. MANTENER EL CONTENEDOR PRINCIPAL LIBRE */
+#pantalla-enlazar-juego {
+  position: relative;
+  width: 100%;
+  min-height: 80vh;
+}
+
+/* 2. SLOTS EN MATRIZ (1-2 / 3-4 / 5 al centro) */
+/* MATRIZ DE CASILLAS AMPLIAS Y SEPARADAS */
+.columna-slots {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 20px 40px !important; /* Más separación entre filas (20px) y columnas (40px) */
+  max-width: 460px;
+  width: 90%;
+  margin: 15px auto 25px auto !important;
+}
+
+.casilla-slot-drop {
+  background: rgba(245, 164, 244, 0.331);
+  border: 3px dashed #00000000;
+  min-height: 75px; /* Altura amplia para recibir la ficha de 110px */
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.2s ease;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0);
+}
+
+.casilla-slot-drop.drag-over {
+  background: rgba(255, 121, 198, 0.25);
+  border-color: #50fa7b;
+  transform: scale(1.03);
+}
+
+/* El puesto 5 abarca abajo centrado con buen tamaño */
+.casilla-slot-drop[data-puesto="5"] {
+  grid-column: span 2;
+  width: 55%;
+  justify-self: center;
+}
+
+/* Indicador del número en la esquina superior izquierda */
+.casilla-slot-drop .numero-puesto {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  background: #ff79c6;
+  color: #1a0f2b;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: bold;
+  border-radius: 6px;
+  border: 2px solid #1a0f2b;
+  box-shadow: 2px 2px 0px #bd93f9;
+}
+
+/* 3. FICHAS LIBRES SIN CAJA CONTENEDORA */
+.ficha-arrastrable {
+  position: absolute; /* Les permite flotar por cualquier parte de la pantalla */
+  z-index: 20;
+  background: #25163a;
+  border: 2px solid #00000000;
+  padding: 4px;
+  border-radius: 6px;
+  cursor: grab;
+  width: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  user-select: none;
+  box-shadow: 0 4px 10px #50fa7b(0, 0, 0, 0);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  clip-path: polygon(
+        0 6px, 6px 6px, 6px 0,
+        calc(100% - 6px) 0, calc(100% - 6px) 6px, 100% 6px,
+        100% calc(100% - 6px), calc(100% - 6px) calc(100% - 6px), calc(100% - 6px) 100%,
+        6px 100%, 6px calc(100% - 6px), 0 calc(100% - 6px)
+      ) !important;
+}
+
+.ficha-arrastrable:active {
+  cursor: grabbing;
+  z-index: 100 !important; /* Se pone por encima de todo al arrastrarla */
+  transform: scale(1.08);
+  box-shadow: 0 0 15px #50fa7b;
+}
+
+.ficha-arrastrable img {
+  width: 100%;
+  height: 42px;
+  object-fit: cover;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.ficha-arrastrable span {
+  font-size: 7px;
+  color: #ffffff;
+  text-align: center;
+  pointer-events: none;
+}
+/* CENTRADO Y ORGANIZACIÓN VERTICAL DE BOTONES */
+.contenedor-botones-juego {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  margin: 15px auto 0 auto !important;
+  width: 100% !important;
+}
+
+.contenedor-botones-juego .btn-arcade {
+  margin: 0 !important;
+  width: 220px !important;
+  max-width: 220px !important;
+}
+
+.contenedor-botones-juego .btn-salir {
+  margin: 0 !important;
+  width: 220px !important;
+  max-width: 220px !important;
+  text-align: center !important;
+}
+
+/* CENTRADO GENERAL DE LA PANTALLA DEL JUEGO */
+#pantalla-enlazar-juego {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ESTANTERÍA Y FILA HORIZONTAL DE LIBROS */
+#estanteria-libros-container {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important; /* Prohíbe estrictamente que un libro se baje de fila */
+  justify-content: center !important;
+  align-items: flex-end !important;
+  gap: 8px !important; /* Espacio estrecho e ideal para 5 tarjetas */
+  width: 100% !important;
+  max-width: 900px !important;
+  margin: 10px auto !important;
+  padding: 0 5px 10px 5px !important;
+  border-bottom: 3px solid #ff79c6;
+  box-shadow: 0 6px 10px -4px rgba(255, 121, 198, 0.4);
+  box-sizing: border-box !important;
+}
+
+/* TARJETA DE LIBRO */
+.tarjeta-libro-lluvia {
+  flex: 1 1 0px !important; /* Reparte el ancho en 5 partes exactamente iguales */
+  min-width: 0 !important; /* Permite encogerse sin romper la fila */
+  max-width: 130px !important;
+  background: #00000000;
+  border: 2px solid #00000000;
+  border-radius: 8px;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0);
+  opacity: 0;
+  transform: translateY(-250px);
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease, border-color 0.3s, box-shadow 0.3s;
+  box-sizing: border-box !important;
+}
+
+#pantalla-recomendaciones-libros .tarjeta-libro-lluvia img {
+  width: 100% !important;
+  height: 130px !important;       /* Fuerza una altura fija exacta para todas */
+  max-height: 110px !important;   /* Evita que imágenes muy grandes sobrepasen el tamaño */
+  object-position: center !important; /* Centra el recorte de la portada */
+  border-radius: 4px;
+  display: block !important;
+}
+
+.tarjeta-libro-lluvia .tag-genero {
+  font-size: 10px;
+  background: #00000000;
+  color: #c15edfec;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+.tarjeta-libro-lluvia span {
+  font-size: 7px;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.1;
+  word-break: break-word;
+}
+
+/* ATERRIZAJE Y HOVER */
+.tarjeta-libro-lluvia.caido {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tarjeta-libro-lluvia:hover {
+  transform: translateY(-8px) scale(1.04) !important;
+  border-color: #50fa7a00;
+  box-shadow: 0 0 15px #fa50c1;
+}
+
+#estanteria-musica-container {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important; /* Prohíbe estrictamente que un libro se baje de fila */
+  justify-content: center !important;
+  align-items: flex-end !important;
+  gap: 8px !important; /* Espacio estrecho e ideal para 5 tarjetas */
+  width: 100% !important;
+  max-width: 900px !important;
+  margin: 10px auto !important;
+  padding: 0 5px 10px 5px !important;
+  border-bottom: 3px solid #ff79c6;
+  box-shadow: 0 6px 10px -4px rgba(255, 121, 198, 0.4);
+  box-sizing: border-box !important;
+}
+
+/* TARJETA DE LIBRO */
+.tarjeta-libro-musica {
+  flex: 1 1 0px !important; /* Reparte el ancho en 5 partes exactamente iguales */
+  min-width: 0 !important; /* Permite encogerse sin romper la fila */
+  max-width: 130px !important;
+  background: #00000000;
+  border: 2px solid #00000000;
+  border-radius: 8px;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0);
+  opacity: 0;
+  transform: translateY(-250px);
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease, border-color 0.3s, box-shadow 0.3s;
+  box-sizing: border-box !important;
+}
+
+#pantalla-recomendaciones-musica .tarjeta-musica-lluvia img {
+  width: 100% !important;
+  height: 130px !important;       /* Fuerza una altura fija exacta para todas */
+  max-height: 110px !important;   /* Evita que imágenes muy grandes sobrepasen el tamaño */
+  object-position: center !important; /* Centra el recorte de la portada */
+  border-radius: 4px;
+  display: block !important;
+}
+
+.tarjeta-musica-lluvia .tag-fav {
+  font-size: 10px;
+  background: #00000000;
+  color: #c15edfec;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+.tarjeta-musica-lluvia span {
+  font-size: 7px;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.1;
+  word-break: break-word;
+}
+
+/* ATERRIZAJE Y HOVER */
+.tarjeta-musica-lluvia.caido {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tarjeta-libro-lluvia:hover {
+  transform: translateY(-8px) scale(1.04) !important;
+  border-color: #50fa7a00;
+  box-shadow: 0 0 15px #fa50c1;
+}
+
+@media (max-width: 650px) {
+  /* Adapta el contenedor principal a pantallas pequeñas */
+  .juego-drag-container { 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 10px;
+    margin: 5px auto;
+  }}
+
+@media (max-width: 650px) {
+  .juego-drag-container { flex-direction: column; align-items: center; }
+  .banco-fichas { width: 100%; min-height: 120px; }
+  .columna-slots { width: 100%; }
+  .ficha-arrastrable { width: 100px; }
+  .ficha-arrastrable img { height: 45px; }
+}
+  </style>
+</head>
+<body>
+
+  <!-- Fotos Retro flotantes (Guárdalas en /img/ o ajusta el nombre de la imagen) -->
+  <img src="img/foto1.jpeg" class="foto-fondo foto-1" alt="Foto 1">
+  <img src="img/foto2.jpeg" class="foto-fondo foto-2" alt="Foto 2">
+  <img src="img/foto3.jpeg" class="foto-fondo foto-3" alt="Foto 3">
+  <img src="img/foto4.jpeg" class="foto-fondo foto-4" alt="Foto 4">
+
+  <div class="ventana">
+
+    <!-- PANTALLA 1: INICIO -->
+    <div id="pantalla-inicio">
+      <h1 class="titulo-gigante">¿QUIERES SABER QUIÉN SOY?</h1>
+      <p class="subtitulo-inicio">HOLA!, SOY CARO</p>
+<button class="btn-arcade" onclick="iniciarMusicaFondo(); abrirPantallaJuegos();">▶ PRESS START</button> 
+     </button>
+    </div>
+
+  <!-- PANTALLA 2: MENÚ DE MINIJUEGOS -->
+    <div id="pantalla-juegos" class="oculto">
+      <h1 class="titulo-gigante" style="font-size: 22px !important;">MINIJUEGOS</h1>
+      <h2 class="subtitulo-inicio">Selecciona una opción</h2>
+
+      <button class="btn-arcade-lista" onclick="iniciarTrivia()"> Trivia sobre mí ❓</button>
+      <button class="btn-arcade-lista" onclick="abrirMenuEnlazar()"> Enlazar 🔗</button>
+      <button class="btn-arcade-lista" onclick="alert('¡Próximamente Juego de Memoria!')"> Juego de Memoria 🎴</button>
+
+      <button class="btn-salir" onclick="irAInicio()">⬅ Regresar</button>
+    </div>
+
+    <!-- PANTALLA ENLAZAR: MENÚ DE TEMAS -->
+    <div id="pantalla-enlazar-menu" class="oculto">
+      <h1 class="titulo-gigante" style="font-size: 24px !important;">Descubre mis gustos y preferencias</h1>
+      <p style="font-size: 14px; color: #8be9fd; margin-bottom: 15px; line-height: 1.5;">
+        "El mejor maestro es el que enseña jugando."<br>– Friedrich Fröbel
+      </p>
+
+      <div class="grid-temas">
+        <!-- 1. LECTURA -->
+        <div class="tarjeta-flip" onclick="iniciarNivelEnlazar(0)">
+          <div class="tarjeta-inner">
+            <div class="tarjeta-frente">
+              <img src="img/Lectura.png" alt="Lectura">
+            </div>
+            <div class="tarjeta-atras">
+              <span>1. Géneros de Lectura 📚</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. MÚSICA -->
+        <div class="tarjeta-flip" onclick="iniciarNivelEnlazar(1)">
+          <div class="tarjeta-inner">
+            <div class="tarjeta-frente">
+              <img src="img/Música.png" alt="Música">
+            </div>
+            <div class="tarjeta-atras">
+              <span>2. Estilos de Música 🎵</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. COMIDA -->
+        <div class="tarjeta-flip" onclick="alert('¡Nivel 3 próximamente!')">
+          <div class="tarjeta-inner">
+            <div class="tarjeta-frente">
+              <img src="img/Comida.png" alt="Comida">
+            </div>
+            <div class="tarjeta-atras">
+              <span>3. Platos Favoritos 🍕</span>
+            </div>
+          </div>
+        </div>
+
+       <div class="tarjeta-flip" onclick="alert('¡Nivel 4 próximamente!')">
+          <div class="tarjeta-inner">
+            <div class="tarjeta-frente">
+              <img src="img/Hobbies.png" alt="Hobbies">
+            </div>
+            <div class="tarjeta-atras">
+              <span>4. Actividades / Hobbies 🎮</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-salir" onclick="volverAMenujuegos()">◄ Regresar a Minijuegos</button>
+    </div>
+
+    <!-- PANTALLA 3: TRIVIA -->
+    <div id="pantalla-trivia" class="oculto"></div>
+
+    <!-- PANTALLA 4: RESULTADO FINAL TRIVIA -->
+    <div id="pantalla-final" class="oculto">
+      <h1 class="titulo-gigante" style="font-size: 22px !important;">¡GRACIAS POR JUGAR!</h1>
+      <p style="font-size: 10px; color: #8be9fd; margin-bottom: 15px;">HAS FINALIZADO CON ÉXITO</p>
+      
+      <div style="background: #1e1b2e; border: 3px solid #bd93f9; padding: 15px; margin: 15px auto; max-width: 450px;">
+        <p style="font-size: 9px; color: #bd93f9; margin-bottom: 8px;">PUNTAJE OBTENIDO:</p>
+        <h2 id="texto-puntaje-num" style="font-size: 24px; color: #50fa7b; margin-bottom: 10px;">0 / 10</h2>
+        <p id="texto-mensaje-evaluacion" style="font-size: 9px; color: #ffffff; line-height: 1.5;"></p>
+      </div>
+
+      <button class="btn-arcade" onclick="iniciarTrivia()">🔄 REPETIR TRIVIA</button>
+      <button class="btn-arcade-lista" onclick="volverAMenujuegos()">🎮 VOLVER A MINIJUEGOS</button>
+      <button class="btn-salir" onclick="irAInicio()">🏠 Ir al Inicio</button>
+    </div>
+
+   <!-- PANTALLA ENLAZAR: JUEGO DRAG & DROP -->
+    <div id="pantalla-enlazar-juego" class="oculto">
+      <h2 id="titulo-enlazar-nivel" style="font-size: 22px; color: #ff79c6; margin-bottom: 8px; text-shadow: 2px 2px #1e1b2e;"></h2>
+      <p style="font-size: 14x; color: #8be9fd; margin-bottom: 15px; line-height: 1.4;">
+        Mueve libremente las fichas por la pantalla y colócalas sobre los cuadros numerados del 1 al 5.
+      </p>
+
+      
+      <!-- PUESTOS EN MATRIZ CENTRADOS (1,2 / 3,4 / 5) -->
+      <div class="columna-slots" id="columna-slots"></div>
+
+      <!-- CONTENEDOR PARA FICHAS SUELTAS EN PANTALLA -->
+      <div id="fichas-libres-container"></div>
+
+      <div id="feedback-enlazar" style="margin: 12px auto; font-size: 11px; min-height: 25px; max-width: 500px; line-height: 1.5;"></div>
+
+      <!-- CONTENEDOR DE BOTONES ALINEADOS VERTICALMENTE EN EL CENTRO -->
+      <div class="contenedor-botones-juego">
+        <button id="btn-calificar-enlazar" class="btn-arcade" onclick="evaluarEnlazar()">✨ CALIFICAR</button>
+        <button class="btn-salir" onclick="reiniciarEnlazarNivel()">🔄 Reiniciar</button>
+        <button class="btn-salir" onclick="abrirMenuEnlazar()">◄ Volver a Temas</button>
+      </div>
+    </div> <!-- AQUÍ SE CIERRA PANTALLA ENLAZAR JUEGO -->
+
+
+    <!-- PANTALLA RECOMENDACIONES DE LIBROS (FILA HORIZONTAL RETRO) -->
+    <div id="pantalla-recomendaciones-libros" class="oculto">
+      <h1 class="titulo-gigante" style="font-size: 22px !important;">📚 MIS LIBROS RECOMENDADOS</h1>
+      <p style="font-size: 14px; color: #8be9fd; margin-bottom: 20px; line-height: 1.5;">
+        Un libro recomendado imprescindible por cada uno de mis géneros favoritos:
+      </p>
+
+      <!-- REPISA / ESTANTERÍA DONDE ATERRIZAN LOS LIBROS -->
+      <div id="estanteria-libros-container"></div>
+
+      <div style="display: flex; gap: 10px; justify-content: center; margin-top: 30px; flex-wrap: wrap;">
+        <!-- Botones para repetir el nivel actual o ir al menú -->
+        <button class="btn-salir" onclick="iniciarNivelEnlazar(nivelActualIndex)">🔄 Repetir Nivel</button>
+        <button class="btn-salir" onclick="reproducirSonido('brillos'); abrirMenuEnlazar();">🏠 Ir a Temas</button>
+        </p>
+<!-- PANTALLA RECOMENDACIONES DE MÚSICA / TOP ARTISTAS -->
+<div id="pantalla-recomendaciones-musica" class="oculto">
+  <h1 class="titulo-gigante" style="font-size: 22px !important;">🎵 MIS ARTISTAS TOP</h1>
+  <p style="font-size: 14px; color: #8be9fd; margin-bottom: 20px; line-height: 1.5;">
+    Un artista imprescindible por cada uno de mis estilos musicales favoritos:
+  </p>
+  
+  <!-- Estantería donde aterrizan los artistas del Nivel 2 -->
+  <div id="estanteria-musica-container" style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 20px;"></div>
+
+  <div style="display: flex; gap: 10px; justify-content: center; margin-top: 30px; flex-wrap: wrap;">
+    <button class="btn-salir" onclick="iniciarNivelEnlazar(1)">🔄 Repetir Nivel</button>
+    <button class="btn-salir" onclick="reproducirSonido('brillos'); abrirMenuEnlazar();">🏠 Ir a Temas</button>
+    <button class="btn-arcade" onclick="iniciarNivelEnlazar(1)">📚 Nivel 1</button>
+<button class="btn-arcade" onclick="iniciarNivelEnlazar(2)">🎵 Nivel 2</button>
+  </div>
+</div>
+
+    
+          <!-- Nivel 1: Lectura (Índice 0) -->
+<div class="tarjeta-flip" onclick="iniciarNivelEnlazar(1)">...</div>
+
+<!-- Nivel 2: Música (Índice 1) -->
+<div class="tarjeta-flip" onclick="iniciarNivelEnlazar(2)">...</div>
+
+<!-- Nivel 3: Comida (Índice 2) -->
+<div class="tarjeta-flip" onclick="iniciarNivelEnlazar(3)">...</div>
+
+<!-- Nivel 4: Hobbies (Índice 3) -->
+<div class="tarjeta-flip" onclick="iniciarNivelEnlazar(4)">...</div>
+
+  </div>
+</div>
+      </div>
+       </div>
+      </div>
+    </div>
+
+  <script>
+    let indicePreguntaActual = 0;
+    let puntaje = 0;
+
+    const preguntasTrivia = [
+      {
+        seccion: "SECTION 1: THE MIND 🧠",
+        pregunta: "1. ¿Qué podría hacerme perder la noción del tiempo?",
+        opciones: [
+          "Hacer ejercicio durante horas",
+          "Investigar un tema que me dio curiosidad",
+          "Ir de compras",
+          "Ir a la iglesia"
+        ],
+        correcta: 1,
+        explicaciones: [
+          "Nop, el ejercicio está bien, pero no es lo que me absorbe por completo.",
+          "¡Exacto! Cuando un tema despierta mi curiosidad, puedo pasar horas investigándolo sin darme cuenta #hiperfocos.",
+          "Cero que ver, ir de compras no es mi idea de perder la noción del tiempo.",
+          "Nel, a ver, empezamos muy mal."
+        ]
+      },
+      {
+        seccion: "SECTION 1: THE MIND 🧠",
+        pregunta: "2. ¿Qué contradicción me representa mejor?",
+        opciones: [
+          "Soy sensible, pero intento analizarlo todo racionalmente",
+          "Quiero conocer el mundo, pero odio convivir con mucha gente",
+          "Me encantan las matemáticas, pero odio pensar",
+          "Soy muy expresiva y al mismo tiempo puedo no tener ninguna expresión"
+        ],
+        correcta: 0,
+        explicaciones: [
+          "¡Total! Esa convivencia entre mi lado sensible/romántico y mi análisis racional es 100% mi esencia.",
+          "Cierto, pero me gusta mi espacio y también explorar el mundo, la cantidad de gente no impediría mis aventuras.",
+          "Nop, de hecho me fascina pensar e investigar.",
+          "Casi! es correcto, pero no es 100% mi esencia :/."
+        ]
+      },
+      {
+        seccion: "SECTION 1: THE MIND 🧠",
+        pregunta: "3. ¿De qué podría hablar durante horas?",
+        opciones: [
+          "De tendencias, comida y algoritmos",
+          "De temas profundos, relaciones humanas y salud mental",
+          "De deportes y resultados",
+          "De celebridades y rumores"
+        ],
+        correcta: 1,
+        explicaciones: [
+          "Son temas básicos y sencillos, pero no para hablar horas enteras de ello.",
+          "¡Bingo! Amo las conversaciones profundas sobre la mente, las emociones y la psicología humana, 'carolinada'.",
+          "Para nada, los deportes no están en mi radar de pláticas interminables.",
+          "Nop, prefiero mil veces hablar de la psiquis que de chismes, nanana, mal ahí."
+        ]
+      },
+      {
+        seccion: "SECTION 1: THE MIND 🧠",
+        pregunta: "4. ¿Qué me gustaría hacer con una idea que me apasiona?",
+        opciones: [
+          "Hacer un canva o collage sobre el tema",
+          "Investigarla, entenderla y desarrollar mi propia perspectiva",
+          "Olvidarla por unos dias y retomarla luego",
+          "Esperar a que alguien más la explique"
+        ],
+        correcta: 1,
+        explicaciones: [
+          "Es posible, pero ¿y el ejercicio de introspección?.",
+          "¡Exacto! Necesito detallar la idea, investigar sus 'por qué' y armar mi propia conclusión.",
+          "Si me apasiona, no la olvido por unos días, gracias a #hiperfocos no se va de mi mente hasta encontrar respuesta.",
+          "Jamás espero a que otro lo haga; prefiero sacar mis propias respuestas."
+        ]
+      },
+      {
+        seccion: "SECTION 1: THE MIND 🧠",
+        pregunta: "5. ¿Cuál de estas opciones describe mejor mi sentido del humor?",
+        opciones: [
+          "Sarcástico y espontáneo",
+          "Serio y formal",
+          "Exclusivamente absurdo",
+          "No suelo bromear"
+        ],
+        correcta: 0,
+        explicaciones: [
+          "¡Mega sí! 😏 Disfruto un humor loko, con toques de sarcasmo y comentarios espontáneos.",
+          "Para nada; aunque soy reflexiva, me encanta reírme y se nota.",
+          "El absurdo tiene su lugar, pero el sarcasmo es mi favorito.",
+          "¡Claro que bromeo! Solo que con mi propio estilo, a lo loko chikibaby."
+        ]
+      },
+      {
+        seccion: "SECTION 2: THE LORE 🧪",
+        pregunta: "6. Si pudiera ver cumplido uno de mis grandes sueños futuros, ¿cuál sería?",
+        opciones: [
+          "Tener mi propio laboratorio",
+          "Ser una influencer famosa",
+          "Tener una cadena de restaurantes",
+          "Convertirme en cantante"
+        ],
+        correcta: 0,
+        explicaciones: [
+          "¡Sí! 🔬 Mi meta soñada en el mundo científico es liderar e investigar en mi propio laboratorio.",
+          "La fama superficial no me atrae.",
+          "Me gusta el café, pero no para poner una cadena de restaurantes.",
+          "Disfruto la música, pero mi meta profesional está en la ciencia."
+        ]
+      },
+      {
+        seccion: "SECTION 2: THE LORE 🧪",
+        pregunta: "7. ¿Qué rama del arte practicaba hace unos ayeres?",
+        opciones: [
+          "Danza",
+          "Pintura",
+          "Escritura",
+          "Gimnasia artística"
+        ],
+        correcta: 0,
+        explicaciones: [
+          "¡Sí! Desde los 5 años bailando, mi primer amor artístico.",
+          "No, de hecho era muy mala en eso.",
+          "Antes no lo hacía, ni siquiera leía.",
+          "Sueño frustrado!"
+        ]
+      },
+      {
+        seccion: "SECTION 2: THE LORE 🧪",
+        pregunta: "8. ¿Qué proyecto creativo me gustaría hacer realidad?",
+        opciones: [
+          "Diseñar una colección de ropa",
+          "Escribir un libro",
+          "Producir un álbum musical",
+          "Dirigir una película"
+        ],
+        correcta: 1,
+        explicaciones: [
+          "La estética me gusta, pero la escritura es la forma en que elijo expresarme.",
+          "¡Así es! 📖 Quiero plasmar mis ideas, pensamientos y contradicciones en mi propio libro.",
+          "Amo la música, pero mi aporte creativo será a través de las letras.",
+          "Analizar películas me fascina, pero prefiero la literatura para crear."
+        ]
+      },
+      {
+        seccion: "SECTION 2: THE LORE 🧪",
+        pregunta: "9. ¿Qué iba a estudiar antes de economía?",
+        opciones: [
+          "Ingeniería química",
+          "Química",
+          "Lenguas modernas",
+          "Producción musical"
+        ],
+        correcta: 1,
+        explicaciones: [
+          "Ufff casiiii, pero no.",
+          "Tal cual, iba a estudiar química en la Distri.",
+          "Si lo consideré, pero antes de química.",
+          "Se podría convertir en un hobby pero no una carrera"
+        ]
+      },
+      {
+        seccion: "SECTION 2: THE LORE 🧪",
+        pregunta: "10. ¿Qué tomaría y comería por el resto de mi vida?",
+        opciones: [
+          "Cerveza y arroz con leche.",
+          "Café y corrientazo",
+          "Bubble tea y mochis.",
+          "Malteada y uchuvas."
+        ],
+        correcta: 1,
+        explicaciones: [
+          "¿Y esa combi?",
+          "¡Acertaste! El café en todas sus formas y el corrientazo fijo.",
+          "Deli, pero mucho dulce.",
+          "Simplemente no."
+        ]
+      }
+    ];
+
+   function irAMinijuegos() {
+      ocultarTodas();
+      document.getElementById("pantalla-juegos").classList.remove("oculto");
+    }
+
+    function irAInicio() {
+      ocultarTodas();
+      document.getElementById("pantalla-inicio").classList.remove("oculto");
+    }
+
+    function volverAMenujuegos() {
+      ocultarTodas();
+      document.getElementById("pantalla-juegos").classList.remove("oculto");
+    }
+
+    function abrirMenuEnlazar() {
+      ocultarTodas();
+      document.getElementById("pantalla-enlazar-menu").classList.remove("oculto");
+    }
+
+    function ocultarTodas() {
+      document.getElementById("pantalla-inicio").classList.add("oculto");
+      document.getElementById("pantalla-juegos").classList.add("oculto");
+      document.getElementById("pantalla-trivia").classList.add("oculto");
+      document.getElementById("pantalla-final").classList.add("oculto");
+      document.getElementById("pantalla-enlazar-menu").classList.add("oculto");
+      document.getElementById("pantalla-enlazar-juego").classList.add("oculto");
+      document.getElementById("pantalla-recomendaciones-libros").classList.add("oculto");
+    }
+function abrirPantallaInicio() {
+  ocultarTodas();
+  document.getElementById("pantalla-inicio").classList.remove("oculto");
+  iniciarMusicaFondo(); // 🎵 Suena la música
+}
+
+function abrirPantallaJuegos() {
+  ocultarTodas();
+  document.getElementById("pantalla-juegos").classList.remove("oculto");
+  iniciarMusicaFondo(); // 🎵 Sigue sonando la música
+}
+
+// En los juegos o recomendaciones donde aún no la quieras:
+function abrirRecomendacionesLibros() {
+  ocultarTodas();
+  document.getElementById("pantalla-recomendaciones-libros").classList.remove("oculto");
+  pausarMusicaFondo(); // 🔇 Pausa la música
+
+  function abrirRecomendacionesMusica() {
+  ocultarTodas();
+  document.getElementById("pantalla-recomendaciones-musica").classList.remove("oculto");
+  pausarMusicaFondo(); // 🔇 Pausa la música
+}
+}
+    function iniciarTrivia() {
+      indicePreguntaActual = 0;
+      puntaje = 0;
+      ocultarTodas();
+      const pantallaTrivia = document.getElementById('pantalla-trivia');
+      pantallaTrivia.classList.remove('oculto');
+
+      pantallaTrivia.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; max-width: 400px; margin: 0 auto;">
+          <span style="font-size: 9px; color: #8be9fd;">PROGRESS...</span>
+          <span style="font-size: 9px; color: #50fa7b;">0/10</span>
+        </div>
+        <div class="barra-progreso-contenedor"><div class="barra-progreso-relleno" style="width: 0%;"></div></div>
+        <h2 class="titulo-gigante" style="font-size: 24px !important;">CARO.exe</h2>
+        <p style="font-size: 11px; color: #ff5555; margin: 10px 0;">Error 404: entenderme por completo.</p>
+        <p style="font-size: 10px; color: #8be9fd; line-height: 1.6; margin-bottom: 20px;">
+          Bienvenid@ a mi mente.<br>Explora THE MIND y THE LORE para descubrir cómo pienso.<br><br>Ready to decode me?
+        </p>
+        <button class="btn-arcade-lista" onclick="mostrarPregunta()">► INICIAR!</button>
+        <button class="btn-salir" onclick="volverAMenujuegos()">◄ Regresar</button>
+      `;
+    }
+
+    function mostrarPregunta() {
+      const q = preguntasTrivia[indicePreguntaActual];
+      const contenedor = document.getElementById('pantalla-trivia');
+      const porcentaje = ((indicePreguntaActual + 1) / preguntasTrivia.length) * 100;
+
+      let opcionesHTML = '';
+      q.opciones.forEach((opcion, index) => {
+        opcionesHTML += `<button id="btn-opcion-${index}" class="btn-arcade-lista" style="margin: 0 !important; width: 100% !important;" onclick="responderTrivia(${index})">${opcion}</button>`;
+      });
+
+      contenedor.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; max-width: 400px; margin: 0 auto;">
+          <span style="font-size: 9px; color: #8be9fd;">PROGRESS...</span>
+          <span style="font-size: 9px; color: #50fa7b;">${indicePreguntaActual + 1}/${preguntasTrivia.length}</span>
+        </div>
+        <div class="barra-progreso-contenedor"><div class="barra-progreso-relleno" style="width: ${porcentaje}%;"></div></div>
+        <h2 class="subtitulo-inicio" style="color: #bd93f9; font-size: 9px;">${q.seccion}</h2>
+        <h3 style="font-size: 11px; color: #fff; margin: 12px 0; line-height: 1.5;">${q.pregunta}</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; max-width: 480px; margin: 0 auto;">${opcionesHTML}</div>
+        <div id="feedback-trivia" style="margin-top: 12px; min-height: 35px; font-size: 10px;"></div>
+        <button class="btn-salir" onclick="volverAMenujuegos()">⌂ Regresar</button>
+      `;
+    }
+
+    function responderTrivia(opcionSeleccionada) {
+      const q = preguntasTrivia[indicePreguntaActual];
+      const feedback = document.getElementById('feedback-trivia');
+
+      for (let i = 0; i < q.opciones.length; i++) {
+        const btn = document.getElementById(`btn-opcion-${i}`);
+        if (btn) btn.disabled = true;
+        if (i === q.correcta && btn) {
+          btn.style.setProperty('background', '#50fa7b', 'important');
+          btn.style.setProperty('color', '#1a0f2b', 'important');
+        }
+      }
+
+      if (opcionSeleccionada !== q.correcta) {
+        reproducirSonido('incorrecto');
+        const btnIncorrecto = document.getElementById(`btn-opcion-${opcionSeleccionada}`);
+        if (btnIncorrecto) {
+          btnIncorrecto.style.setProperty('background', 'rgba(255, 85, 85, 0.15)', 'important');
+          btnIncorrecto.innerHTML = `<span style="color: #ff5555; font-size: 18px;">✖</span>`;
+        }
+        feedback.innerHTML = `<span style="color: #ff5555;">[X] INCORRECTO</span><br><span>${q.explicaciones[opcionSeleccionada]}</span>`;
+      } else {
+        puntaje++;
+        reproducirSonido('correcto');
+        feedback.innerHTML = `<span style="color: #50fa7b;">[V] ¡CORRECTO!</span><br><span>${q.explicaciones[opcionSeleccionada]}</span>`;
+      }
+
+      setTimeout(() => {
+        indicePreguntaActual++;
+        if (indicePreguntaActual < preguntasTrivia.length) {
+          mostrarPregunta();
+        } else {
+          finalizarTrivia();
+        }
+      }, 5000);
+    }
+
+    function finalizarTrivia() {
+      ocultarTodas();
+      document.getElementById('pantalla-final').classList.remove('oculto');
+      document.getElementById('texto-puntaje-num').innerText = `${puntaje} / 10`;
+
+      const mensajeEvaluacion = document.getElementById('texto-mensaje-evaluacion');
+      if (puntaje >= 9) {
+        mensajeEvaluacion.innerText = "¡NIVEL LEYENDA! 👑 Me conoces tan a fondo que mereces un pase VIP a mi futuro laboratorio en Londres.";
+      } else if (puntaje >= 6) {
+        mensajeEvaluacion.innerText = "¡NIVEL CO-PROTAGONISTA! ☕ Tienes súper claro cómo funciona mi mente, mi gusto por el café y el corrientazo.";
+      } else {
+        mensajeEvaluacion.innerText = "¡NIVEL EXPLORADOR! 🧪 Descubriste varios datos clave sobre mí, pero aún queda mucho lore por desbloquear.";
+      }
+    };
+  
+    let nivelActualIndex = 0;
+let fichaArrastrandose = null;
+
+const nivelesEnlazar = [
+  {
+    id: 1,
+    titulo: "📚 NIVEL 1: MIS GÉNEROS DE LECTURA FAVORITOS",
+    tipoAccion: "libros",
+    ordenCorrecto: ["Misterio", "Novelas", "Ensayo", "Romance", "Filosofía"],
+    fichas: [
+      { nombre: "Misterio", img: "img/Misterio.png" },
+      { nombre: "Novelas", img: "img/Novela.png" },
+      { nombre: "Ensayo", img: "img/Ensayo.png" },
+      { nombre: "Romance", img: "img/Romance.png" },
+      { nombre: "Filosofía", img: "img/Filosofia.png" }
+    ]
+  },
+  {
+    id: 2,
+    titulo: "🎵 NIVEL 2: MIS ESTILOS DE MÚSICA ACTUALES",
+    tipoAccion: "musica",
+    ordenCorrecto: [
+      "Rock en Español",
+      "Electronic / Phonk",
+      "Indie Pop / Pop Alternativo",
+      "Rock Alternativo / Grunge / Metal",
+      "Urbano Latino / Hip-Hop"
+    ],
+    fichas: [
+      { nombre: "Rock en Español", img: "img/Rock en español.png" },
+      { nombre: "Electronic / Phonk", img: "img/Phonk.png" },
+      { nombre: "Indie Pop / Pop Alternativo", img: "img/indie pop.png" },
+      { nombre: "Rock Alternativo / Grunge / Metal", img: "img/Metal.png" },
+      { nombre: "Urbano Latino / Hip-Hop", img: "img/Urban.png" }
+    ]
+  },
+  {
+    id: 3,
+    titulo: "🍕 NIVEL 3: MIS COMIDAS FAVORITAS",
+    tipoAccion: "resultado",
+    ordenCorrecto: ["Pizza", "Hamburguesa", "Tacos", "Sushi", "Pasta"],
+    fichas: [
+      { nombre: "Pizza", img: "img/comida-pizza.png" },
+      { nombre: "Hamburguesa", img: "img/comida-hamburguesa.png" },
+      { nombre: "Tacos", img: "img/comida-tacos.png" },
+      { nombre: "Sushi", img: "img/comida-sushi.png" },
+      { nombre: "Pasta", img: "img/comida-pasta.png" }
+    ]
+  },
+  {
+    id: 4,
+    titulo: "🎨 NIVEL 4: MIS HOBBIES FAVORITOS",
+    tipoAccion: "resultado",
+    ordenCorrecto: ["Dibujar", "Leer", "Programar", "Fotografía", "Música"],
+    fichas: [
+      { nombre: "Dibujar", img: "img/hobby-dibujar.png" },
+      { nombre: "Leer", img: "img/hobby-leer.png" },
+      { nombre: "Programar", img: "img/hobby-programar.png" },
+      { nombre: "Fotografía", img: "img/hobby-foto.png" },
+      { nombre: "Música", img: "img/hobby-musica.png" }
+    ]
+  }
+];
+
+const accionesEnlazar = {
+  libros: {
+    texto: "📖 RECOMENDACIONES",
+    ejecutar: abrirRecomendacionesLibros
+  },
+  musica: {
+    texto: "🎵 TOP ARTISTAS",
+    ejecutar: abrirRecomendacionesMusica
+  },
+  resultado: {
+    texto: "✨ VER RESULTADO",
+    ejecutar: mostrarResultadoEnlazar
+  }
+};
+
+function iniciarNivelEnlazar(indexNivel) {
+  const nivel = nivelesEnlazar[indexNivel];
+  if (!nivel) {
+    console.error(`No existe el nivel Enlazar con índice ${indexNivel}.`);
+    return;
+  }
+
+  nivelActualIndex = indexNivel;
+  fichaArrastrandose = null;
+  ocultarTodas();
+
+  document.getElementById("pantalla-enlazar-juego").classList.remove("oculto");
+  document.getElementById("titulo-enlazar-nivel").textContent = nivel.titulo;
+  document.getElementById("feedback-enlazar").textContent = "";
+
+  const boton = document.getElementById("btn-calificar-enlazar");
+  boton.textContent = "✨ CALIFICAR";
+  boton.onclick = evaluarEnlazar;
+
+  const slots = document.getElementById("columna-slots");
+  slots.replaceChildren();
+
+  nivel.ordenCorrecto.forEach((_, index) => {
+    const slot = document.createElement("div");
+    slot.className = "casilla-slot-drop";
+    slot.dataset.puesto = String(index + 1);
+    slot.innerHTML = `<div class="numero-puesto">${index + 1}</div>`;
+    slots.appendChild(slot);
+  });
+  
+
+ function colocarFichaLibre(ficha, x, y) {
+  const pool = document.getElementById("fichas-libres-container");
+  const maxX = Math.max(0, pool.clientWidth - ficha.offsetWidth);
+  const maxY = Math.max(0, pool.clientHeight - ficha.offsetHeight);
+
+  ficha.style.position = "absolute";
+  ficha.style.left = `${Math.max(0, Math.min(x, maxX))}px`;
+  ficha.style.top = `${Math.max(0, Math.min(y, maxY))}px`;
+  ficha.style.right = "auto";
+  ficha.style.bottom = "auto";
+  ficha.style.zIndex = "20";
+}
+
+function iniciarArrastreEnlazar(event) {
+  if (event.button !== undefined && event.button !== 0) return;
+
+  const ficha = event.currentTarget;
+  const rect = ficha.getBoundingClientRect();
+
+  fichaArrastrandose = {
+    elemento: ficha,
+    offsetX: event.clientX - rect.left,
+    offsetY: event.clientY - rect.top
+  };
+
+  ficha.style.position = "fixed";
+  ficha.style.left = `${rect.left}px`;
+  ficha.style.top = `${rect.top}px`;
+  ficha.style.zIndex = "1000";
+
+  document.addEventListener("pointermove", moverArrastreEnlazar);
+  document.addEventListener("pointerup", soltarArrastreEnlazar);
+  document.addEventListener("pointercancel", soltarArrastreEnlazar);
+}
+
+function moverArrastreEnlazar(event) {
+  if (!fichaArrastrandose) return;
+
+  const { elemento, offsetX, offsetY } = fichaArrastrandose;
+  elemento.style.left = `${event.clientX - offsetX}px`;
+  elemento.style.top = `${event.clientY - offsetY}px`;
+}
+
+function soltarArrastreEnlazar(event) {
+  document.removeEventListener("pointermove", moverArrastreEnlazar);
+  document.removeEventListener("pointerup", soltarArrastreEnlazar);
+  document.removeEventListener("pointercancel", soltarArrastreEnlazar);
+
+  if (!fichaArrastrandose) return;
+
+  const { elemento: ficha, offsetX, offsetY } = fichaArrastrandose;
+  fichaArrastrandose = null;
+
+  ficha.hidden = true;
+  const destino = document.elementFromPoint(event.clientX, event.clientY);
+  ficha.hidden = false;
+
+  const slot = destino?.closest("#columna-slots .casilla-slot-drop");
+  const pool = document.getElementById("fichas-libres-container");
+
+  if (slot) {
+    const anterior = slot.querySelector(".ficha-arrastrable");
+
+    if (anterior && anterior !== ficha) {
+      pool.appendChild(anterior);
+      colocarFichaLibre(
+        anterior,
+        Math.random() * pool.clientWidth,
+        Math.random() * pool.clientHeight
+      );
+    }
+
+    slot.appendChild(ficha);
+    ficha.style.position = "relative";
+    ficha.style.left = "auto";
+    ficha.style.top = "auto";
+    ficha.style.right = "auto";
+    ficha.style.bottom = "auto";
+    ficha.style.zIndex = "1";
+    return;
+  }
+
+  pool.appendChild(ficha);
+  const rectPool = pool.getBoundingClientRect();
+  colocarFichaLibre(
+    ficha,
+    event.clientX - rectPool.left - offsetX,
+    event.clientY - rectPool.top - offsetY
+  );
+}
+    pool.appendChild(elemento);
+
+const maxX = Math.max(0, pool.clientWidth - elemento.offsetWidth);
+const maxY = Math.max(0, pool.clientHeight - elemento.offsetHeight);
+colocarFichaLibre(
+  elemento,
+  Math.random() * maxX,
+  Math.random() * maxY
+);
+  };
+
+function iniciarArrastreEnlazar(event) {
+  if (event.button !== undefined && event.button !== 0) return;
+
+  const ficha = event.currentTarget;
+  const rect = ficha.getBoundingClientRect();
+
+  fichaArrastrandose = {
+    elemento: ficha,
+    offsetX: event.clientX - rect.left,
+    offsetY: event.clientY - rect.top
+  };
+
+  ficha.style.position = "fixed";
+  ficha.style.left = `${rect.left}px`;
+  ficha.style.top = `${rect.top}px`;
+  ficha.style.zIndex = "1000";
+
+  document.addEventListener("pointermove", moverArrastreEnlazar);
+  document.addEventListener("pointerup", soltarArrastreEnlazar, { once: true });
+  document.addEventListener("pointercancel", soltarArrastreEnlazar, { once: true });
+}
+
+function moverArrastreEnlazar(event) {
+  if (!fichaArrastrandose) return;
+
+  const { elemento, offsetX, offsetY } = fichaArrastrandose;
+  elemento.style.left = `${event.clientX - offsetX}px`;
+  elemento.style.top = `${event.clientY - offsetY}px`;
+}
+
+function soltarArrastreEnlazar(event) {
+  document.removeEventListener("pointermove", moverArrastreEnlazar);
+
+  if (!fichaArrastrandose) return;
+
+  const ficha = fichaArrastrandose.elemento;
+  fichaArrastrandose = null;
+
+  ficha.hidden = true;
+  const destino = document.elementFromPoint(event.clientX, event.clientY);
+  ficha.hidden = false;
+
+  const slot = destino?.closest(".casilla-slot-drop");
+  const pool = document.getElementById("fichas-libres-container");
+
+  if (slot) {
+    const fichaAnterior = slot.querySelector(".ficha-arrastrable");
+    if (fichaAnterior && fichaAnterior !== ficha) pool.appendChild(fichaAnterior);
+    slot.appendChild(ficha);
+  } else {
+    pool.appendChild(ficha);
+  }
+
+  ficha.style.position = "";
+  ficha.style.left = "";
+  ficha.style.top = "";
+  ficha.style.zIndex = "";
+}
+
+function reiniciarEnlazarNivel() {
+  iniciarNivelEnlazar(nivelActualIndex);
+}
+
+function evaluarEnlazar() {
+  const nivel = nivelesEnlazar[nivelActualIndex];
+  if (!nivel) {
+    console.error("No se pudo evaluar: el nivel actual no existe.");
+    return;
+  }
+
+  const slots = [...document.querySelectorAll("#columna-slots .casilla-slot-drop")];
+  const colocados = slots.filter((slot) => slot.querySelector(".ficha-arrastrable"));
+
+  if (colocados.length !== nivel.ordenCorrecto.length) {
+    document.getElementById("feedback-enlazar").innerHTML =
+      `⚠️ Coloca todas las fichas en los recuadros (${colocados.length}/${nivel.ordenCorrecto.length}).`;
+    return;
+  }
+
+  const aciertos = slots.reduce((total, slot, index) => {
+    const ficha = slot.querySelector(".ficha-arrastrable");
+    return total + (ficha?.dataset.nombre === nivel.ordenCorrecto[index] ? 1 : 0);
+  }, 0);
+
+  const feedback = document.getElementById("feedback-enlazar");
+  feedback.innerHTML = aciertos === nivel.ordenCorrecto.length
+    ? `<span style="color:#50fa7b">¡PERFECTO! 🌟 (${aciertos}/${nivel.ordenCorrecto.length})</span>`
+    : `Tuviste ${aciertos}/${nivel.ordenCorrecto.length} aciertos. Mi orden real es:<br>${nivel.ordenCorrecto
+        .map((item, index) => `${index + 1}. ${item}`)
+        .join(", ")}`;
+
+  if (aciertos === nivel.ordenCorrecto.length) reproducirSonido("correcto");
+
+  const accion = accionesEnlazar[nivel.tipoAccion] || accionesEnlazar.resultado;
+  const boton = document.getElementById("btn-calificar-enlazar");
+  boton.textContent = accion.texto;
+  boton.onclick = accion.ejecutar;
+}
+
+function mostrarResultadoEnlazar() {
+  const nivel = nivelesEnlazar[nivelActualIndex];
+  const pantalla = document.getElementById("pantalla-resultado-enlazar");
+  document.getElementById("titulo-resultado-enlazar").textContent = nivel.titulo;
+  document.getElementById("texto-resultado-enlazar").innerHTML =
+    nivel.ordenCorrecto.map((item, index) => `${index + 1}. ${item}`).join("<br>");
+  ocultarTodas();
+  pantalla.classList.remove("oculto");
+}
+// BASE DE DATOS DE LIBROS RECOMENDADOS POR GÉNERO
+    const librosRecomendados = [
+      { puesto: 1, genero: "Misterio", titulo: "Los casos de monseour Dupin </p>- Edgar Allan Poe", img: "img/Edgar Allan Poe.png" },
+      { puesto: 2, genero: "Novelas", titulo: "La vegetariana </p>- Han Kang", img: "img/La vegetariana.png" },
+      { puesto: 3, genero: "Ensayo", titulo: "Una habitación propia </p>- Virginia Wolf", img: "img/Una habitación propia.png" },
+      { puesto: 4, genero: "Romance", titulo: "El club de los incomprendidos </p>- Blue Jeans", img: "img/El club de los incomprendidos.png" },
+      { puesto: 5, genero: "Filosofía", titulo: "El mito de la caverna </p>- Platón", img: "img/El mito de la caverna.png" }
+  ];
+      const artistasTop = [
+      { puesto: 1, fav: "Rock", artista: "Los Bunkers</p>Andrés Calamaro</p>Nirvana", img: "img/Llueve sobre la ciudad.jpg" },
+      { puesto: 2, fav: "Alternativo/Phonk", artista: "Artemas</p>Graur</p>The neigborhood</p>adore</p>Asal", img: "img/Devil´s Advocate.png" },
+      { puesto: 3, fav: "Pop", artista: "Ariana Grande</p>The Weekend</p>Justin Bieber</p>Adele", img: "img/Sweetener.jpg" },
+      { puesto: 4, fav: "K-pop", artista: "BlackPink</p>BTS</p>TWICE</p>BabyMonster</p>", img: "img/Forever ypung.png" },
+      { puesto: 5, fav: "Urbano", artista: "Rauw Alejandro</p>Bad Bunny</p>Feid</p>Penyair", img: "img/Desde abajo.jgp" }
+    ];
+
+   function abrirRecomendacionesLibros() {
+      ocultarTodas();
+      document.getElementById("pantalla-recomendaciones-libros").classList.remove("oculto");
+
+      const contenedorEstanteria = document.getElementById("estanteria-libros-container");
+      contenedorEstanteria.innerHTML = "";
+
+      // Dibujamos las 5 columnas de los libros
+      librosRecomendados.forEach((libro, index) => {
+        const divLibro = document.createElement("div");
+        divLibro.className = "tarjeta-libro-lluvia";
+        divLibro.innerHTML = `
+          <span class="tag-genero">${libro.genero}</span>
+          <img src="${libro.img}" alt="${libro.titulo}" onerror="this.src='https://via.placeholder.com/120x180/25163a/ff79c6?text=${libro.genero}'">
+          <span><b>${libro.titulo}</b></span>
+        `;
+
+        contenedorEstanteria.appendChild(divLibro);
+
+        // Activamos la caída en cascada (cada 180ms cae el siguiente)
+        setTimeout(() => {
+          divLibro.classList.add("caido");
+          reproducirSonido('caida_suave');
+        }, index * 180);
+      });
+    }
+
+function abrirRecomendacionesMusica() {
+  ocultarTodas();
+   
+  const pantallaMusica = document.getElementById("pantalla-recomendaciones-musica");
+  if (pantallaMusica) {
+    pantallaMusica.classList.remove("oculto");
+  }
+
+  const contenedorEstanteriaMusica = document.getElementById("estanteria-musica-container");
+  if (contenedorEstanteriaMusica) {
+    contenedorEstanteriaMusica.innerHTML = "";
+    
+    artistasTop.forEach((item, index) => {
+      const divArtista = document.createElement("div");
+      divArtista.className = "tarjeta-musica-lluvia";
+      divArtista.innerHTML = `
+        <span class="tag-fav">${item.fav}</span>
+        <img src="${item.img}" alt="${item.fav}" onerror="this.src='https://via.placeholder.com/120x180/25163a/ff79c6?text=${item.fav}'">
+        <span><b>${item.artista.replace(/<\/p>/g, " - ")}</b></span>
+      `;
+      contenedorEstanteriaMusica.appendChild(divArtista);
+
+      setTimeout(() => {
+        divArtista.classList.add("caido");
+        reproducirSonido('caida_suave');
+      }, index * 180);
+    });
+  }
+}
+
+    // CONTROL DE MÚSICA DE FONDO CON FILTRO RETRO
+let audioFondo = null;
+let audioCtx = null;
+let filtroRetro = null;
+
+function iniciarMusicaFondo() {
+  if (!audioFondo) {
+    // 1. PRIMERO creamos el elemento de audio con la ruta de tu archivo
+    audioFondo = new Audio('audio/fondo-adore.mp3');
+    audioFondo.loop = true;
+    audioFondo.volume = 0.3;
+
+    // 2. LUEGO creamos el contexto de audio y conectamos el filtro
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    audioCtx = new AudioContext();
+    const source = audioCtx.createMediaElementSource(audioFondo);
+
+    filtroRetro = audioCtx.createBiquadFilter();
+    filtroRetro.type = "lowpass";
+    filtroRetro.frequency.value = 1800; // Efecto arcade
+
+    source.connect(filtroRetro);
+    filtroRetro.connect(audioCtx.destination);
+  }
+
+  // Despausar el contexto si el navegador lo suspendió
+  if (audioCtx && audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+
+  // Reproducir
+  audioFondo.play().catch(e => console.log("Se requiere clic previo para sonar:", e));
+}
+
+function pausarMusicaFondo() {
+  if (audioFondo) {
+    audioFondo.pause();
+  }
+}
+    // REPRODUCTOR DE EFECTOS DE SONIDO RETRO 8-BIT
+function reproducirSonido(tipo) {
+  try {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+    const ctx = new AudioContext();
+
+    if (tipo === 'caida_suave' || tipo === 'pop') {
+      // Sonido Pop/Gota sutil para cuando caen las portadas
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(300, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(150, ctx.currentTime + 0.08);
+
+      gain.gain.setValueAtTime(0.15, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.08);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start();
+      osc.stop(ctx.currentTime + 0.08);
+
+    } else if (tipo === 'brillos' || tipo === 'sparkle') {
+      // Sonido de estrellitas / brillos mágicos estilo arcade
+      const notas = [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98]; // Arpegio Do-Mi-Sol-Do-Mi-Sol
+      notas.forEach((freq, index) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + (index * 0.05));
+
+        gain.gain.setValueAtTime(0, ctx.currentTime + (index * 0.05));
+        gain.gain.linearRampToValueAtTime(0.1, ctx.currentTime + (index * 0.05) + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (index * 0.05) + 0.15);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(ctx.currentTime + (index * 0.05));
+        osc.stop(ctx.currentTime + (index * 0.05) + 0.15);
+      });
+
+    } else if (tipo === 'correcto') {
+      // Acorde triunfal rápido
+      [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + (idx * 0.06));
+        gain.gain.setValueAtTime(0.05, ctx.currentTime + (idx * 0.06));
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (idx * 0.06) + 0.2);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime + (idx * 0.06));
+        osc.stop(ctx.currentTime + (idx * 0.06) + 0.2);
+      });
+    }
+  } catch (e) {
+    console.log("Audio no soportado o bloqueado hasta interacción:", e);
+  }
+}
+  </script>
+</body>
+</html>
